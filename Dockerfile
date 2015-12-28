@@ -2,17 +2,19 @@ FROM alpine:latest
 MAINTAINER Vincent Boutour <vincent.boutour@gmail.com>
 
 COPY ./entrypoint.sh /
+ENV MYSQL_DIR=/var/lib/mysql
 
 RUN chmod +x /entrypoint.sh \
+ && adduser -u 1000 -S -s /sbin/nologin mysql \
  && apk --update add mariadb mysql \
  && addgroup mysql mysql \
- && rm -rf /var/lib/mysql \
- && mkdir -p /var/lib/mysql \
- && chown -R mysql:mysql /var/lib/mysql \
+ && rm -rf ${MYSQL_DIR} \
+ && mkdir -p ${MYSQL_DIR} \
+ && chown -R mysql:mysql ${MYSQL_DIR} \
  && chown -R mysql:mysql /etc/mysql/ \
  && rm -rf /var/cache/apk/*
 
-VOLUME /var/lib/mysql /var/log/mysql /etc/mysql/ /tmp
+VOLUME ${MYSQL_DIR} /var/log/mysql /etc/mysql/ /tmp
 
 EXPOSE 3306
 USER mysql
