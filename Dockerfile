@@ -6,6 +6,8 @@ ENV MYSQL_DIR=/var/lib/mysql
 
 RUN chmod +x /entrypoint.sh \
  && adduser -u 1000 -S -s /sbin/nologin mysql \
+ && addgroup -g 60 mysql \
+ && addgroup mysql mysql \
  && apk --update add mariadb mysql \
  && addgroup mysql mysql \
  && rm -rf ${MYSQL_DIR} \
