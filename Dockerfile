@@ -10,7 +10,6 @@ RUN chmod +x /entrypoint.sh \
  && addgroup -g 60 mysql \
  && addgroup mysql mysql \
  && apk --update add mariadb mysql \
- && addgroup mysql mysql \
  && rm -rf ${MYSQL_DIR} \
  && mkdir -p ${MYSQL_DIR} \
  && chown -R mysql:mysql ${MYSQL_DIR} \
