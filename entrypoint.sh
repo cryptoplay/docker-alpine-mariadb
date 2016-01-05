@@ -6,9 +6,7 @@ if [ "${1:0:1}" = '-' ]; then
 fi
 
 if [ "$1" = 'mysqld' ]; then
-  DATADIR="$("$@" --verbose --help 2>/dev/null | awk '$1 == "datadir" { print $2; exit }')"
-
-  if [ ! -d "$DATADIR/mysql" ]; then
+  if [ ! -d "${MYSQL_DIR}/mysql" ]; then
     if [ -z "$MYSQL_ROOT_PASSWORD" -a -z "$MYSQL_ALLOW_EMPTY_PASSWORD" ]; then
       echo >&2 'error: database is uninitialized and MYSQL_ROOT_PASSWORD not set'
       echo >&2 '  Did you forget to add -e MYSQL_ROOT_PASSWORD=... ?'
@@ -16,9 +14,9 @@ if [ "$1" = 'mysqld' ]; then
     fi
 
     echo 'Initializing database'
-    mysql_install_db --ldata="$DATADIR" --user=mysql
+    mysql_install_db --ldata="${MYSQL_DIR}" --user=mysql
     echo 'Database initialized'
-    sed -i "s/\/run\/mysqld\/mysqld\.sock/$(echo $DATADIR | sed -e 's/\\/\\\\/g' -e 's/\//\\\//g' -e 's/&/\\\&/g')mysqld\.sock/" /etc/mysql/my.cnf
+    sed -i "s/\/run\/mysqld\/mysqld\.sock/$(echo ${MYSQL_DIR} | sed -e 's/\\/\\\\/g' -e 's/\//\\\//g' -e 's/&/\\\&/g')mysqld\.sock/" /etc/mysql/my.cnf
 
     tempSqlFile='/tmp/mysql-first-time.sql'
     cat > "$tempSqlFile" << EOSQL
