@@ -14,7 +14,7 @@ if [ "$1" = 'mysqld' ]; then
     fi
 
     echo 'Initializing database'
-    mysql_install_db --ldata="${DATADIR}" --user=mysql
+    mysql_install_db --ldata="${DATADIR}" --basedir=/usr/ --user=mysql
     echo 'Database initialized'
     sed -i "s/\/run\/mysqld\/mysqld\.sock/$(echo ${DATADIR} | sed -e 's/\\/\\\\/g' -e 's/\//\\\//g' -e 's/&/\\\&/g')mysqld\.sock/" /etc/mysql/my.cnf
 
