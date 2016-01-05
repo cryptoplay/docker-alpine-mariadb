@@ -2,7 +2,8 @@ FROM alpine:latest
 MAINTAINER Vincent Boutour <vincent.boutour@gmail.com>
 
 COPY ./entrypoint.sh /
-ENV MYSQL_DIR /var/lib/mysql
+ENV DATADIR /var/lib
+ENV MYSQL_DIR ${DATADIR}/mysql
 
 RUN chmod +x /entrypoint.sh \
  && adduser -u 1000 -S -s /sbin/nologin mysql \
