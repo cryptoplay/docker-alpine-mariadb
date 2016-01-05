@@ -10,8 +10,6 @@ RUN chmod +x /entrypoint.sh \
  && addgroup mysql mysql \
  && apk --update add mariadb mysql \
  && rm -rf ${MYSQL_DIR} \
- && mkdir -p ${MYSQL_DIR} \
- && chown -R mysql:mysql ${MYSQL_DIR} \
  && chown -R mysql:mysql /etc/mysql/ \
  && rm -rf /var/cache/apk/*
 
