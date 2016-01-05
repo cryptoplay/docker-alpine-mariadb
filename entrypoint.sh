@@ -16,7 +16,7 @@ if [ "$1" = 'mysqld' ]; then
     echo 'Initializing database'
     mysql_install_db --ldata="${DATADIR}" --basedir=/usr/ --user=mysql
     echo 'Database initialized'
-    sed -i "s/\/run\/mysqld\/mysqld\.sock/$(echo ${DATADIR} | sed -e 's/\\/\\\\/g' -e 's/\//\\\//g' -e 's/&/\\\&/g')mysqld\.sock/" /etc/mysql/my.cnf
+    sed -i "s/\/run\/mysqld\/mysqld\.sock/$(echo ${MYSQL_DIR} | sed -e 's/\\/\\\\/g' -e 's/\//\\\//g' -e 's/&/\\\&/g')/mysqld\.sock/" /etc/mysql/my.cnf
 
     tempSqlFile='/tmp/mysql-first-time.sql'
     cat > "$tempSqlFile" << EOSQL
@@ -26,15 +26,15 @@ if [ "$1" = 'mysqld' ]; then
       DROP DATABASE IF EXISTS test ;
 EOSQL
     
-    if [ "$MYSQL_DATABASE" ]; then
-      echo "CREATE DATABASE IF NOT EXISTS \`$MYSQL_DATABASE\` ;" >> "$tempSqlFile"
+    if [ "${MYSQL_DATABASE}" ]; then
+      echo "CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\` ;" >> "$tempSqlFile"
     fi
     
-    if [ "$MYSQL_USER" -a "$MYSQL_PASSWORD" ]; then
-      echo "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD' ;" >> "$tempSqlFile"
+    if [ "${MYSQL_USER}" -a "${MYSQL_PASSWORD}" ]; then
+      echo "CREATE USER '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}' ;" >> "$tempSqlFile"
       
-      if [ "$MYSQL_DATABASE" ]; then
-        echo "GRANT ALL ON \`$MYSQL_DATABASE\`.* TO '$MYSQL_USER'@'%' ;" >> "$tempSqlFile"
+      if [ "${MYSQL_DATABASE}" ]; then
+        echo "GRANT ALL ON \`${MYSQL_DATABASE}\`.* TO '${MYSQL_USER}'@'%' ;" >> "$tempSqlFile"
       fi
     fi
     
