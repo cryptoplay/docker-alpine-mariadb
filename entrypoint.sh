@@ -16,7 +16,6 @@ if [ "$1" = 'mysqld' ]; then
     echo 'Initializing database'
     mysql_install_db --ldata="${DATADIR}" --basedir=/usr/ --user=mysql
     echo 'Database initialized'
-    sed -i "s/\/run\/mysqld\/mysqld\.sock/$(echo ${MYSQL_DIR} | sed -e 's/\\/\\\\/g' -e 's/\//\\\//g' -e 's/&/\\\&/g')/mysqld\.sock/" /etc/mysql/my.cnf
 
     tempSqlFile='/tmp/mysql-first-time.sql'
     cat > "$tempSqlFile" << EOSQL
@@ -46,4 +45,5 @@ EOSQL
   chown -R mysql:mysql "${MYSQL_DIR}"
 fi
 
+sed -i "s|^socket.*|socket=${MYSQL_DIR}|" /etc/mysql/my.cnf
 exec "$@"
