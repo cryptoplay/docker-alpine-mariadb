@@ -43,7 +43,7 @@ EOSQL
     set -- "$@" --init-file="$tempSqlFile"
   fi
   
-  chown -R mysql:mysql "$DATADIR"
+  chown -R mysql:mysql "${MYSQL_DIR}"
 fi
 
 exec "$@"
