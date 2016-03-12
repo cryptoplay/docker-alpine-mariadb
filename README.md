@@ -4,12 +4,14 @@
 
 Largely inspired by [MySQL official image](https://github.com/docker-library/mysql) and [Hypriot MySQL image](https://github.com/hypriot/rpi-mysql)
 
-    docker run -d \
-      --name mysql \
-      -p 3306:3306 \
-      -e MYSQL_ROOT_PASSWORD=secret \
-      -e MYSQL_DATABASE=test \
-      -e MYSQL_USER=test \
-      -e MYSQL_PASSWORD=test \
-      --read-only \
-      vibioh/mysql:latest
+```bash
+docker run -d \
+  --name mysql \
+  -p 3306:3306 \
+  -e MYSQL_ROOT_PASSWORD=secret \
+  -e MYSQL_DATABASE=test \
+  -e MYSQL_USER=test \
+  -e MYSQL_PASSWORD=test \
+  --read-only \
+  vibioh/mysql:latest
+```
