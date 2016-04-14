@@ -1,5 +1,5 @@
 mysql:
-  image: vibioh/mysql:latest
+  image: vibioh/mysql
   ports:
   - ${MYSQL_PORT}:3306/tcp
   labels:
