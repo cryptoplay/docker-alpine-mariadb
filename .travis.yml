@@ -1,9 +1,9 @@
 sudo: required
 services:
-  - docker
+- docker
 script:
-  - "docker build -t vibioh/mysql --rm ."
-  - "docker login -e ${DOCKER_EMAIL} -u ${DOCKER_USER} -p ${DOCKER_PASS}"
-  - "docker push vibioh/mysql"
+- docker build -t ${DOCKER_USER}/mysql .
+- docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+- docker push ${DOCKER_USER}/mysql
 notifications:
   email: false
