@@ -1,6 +1,6 @@
 # docker-mysql
 
-[![Build Status](https://travis-ci.org/ViBiOh/docker-mysql.svg?branch=master)](https://travis-ci.org/ViBiOh/docker-mysql) [![](https://images.microbadger.com/badges/image/vibioh/mysql.svg)](https://microbadger.com/images/vibioh/mysql "Get your own image badge on microbadger.com")
+[![Build Status](https://travis-ci.org/ViBiOh/docker-mariadb.svg?branch=master)](https://travis-ci.org/ViBiOh/docker-mariadb) [![](https://images.microbadger.com/badges/image/vibioh/mariadb.svg)](https://microbadger.com/images/vibioh/mariadb "Get your own image badge on microbadger.com")
 
 Largely inspired by [MySQL official image](https://github.com/docker-library/mysql) and [Hypriot MySQL image](https://github.com/hypriot/rpi-mysql)
 
