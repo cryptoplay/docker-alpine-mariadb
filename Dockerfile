@@ -1,7 +1,9 @@
 FROM alpine:3.5
 
 COPY ./entrypoint.sh /
+ENTRYPOINT [ "/entrypoint.sh" ]
 ENV MYSQL_DIR /var/lib/mysql
+EXPOSE 3306
 
 RUN chmod +x /entrypoint.sh \
  && adduser -u 1000 -S -s /sbin/nologin mysql \
@@ -16,8 +18,6 @@ RUN chmod +x /entrypoint.sh \
 
 VOLUME ${MYSQL_DIR} /var/log/mysql /etc/mysql/ /tmp
 
-EXPOSE 3306
 USER mysql
 
-ENTRYPOINT [ "/entrypoint.sh" ]
 CMD [ "mysqld", "--user=mysql" ]
