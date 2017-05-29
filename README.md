@@ -6,12 +6,13 @@ Largely inspired by [MySQL official image](https://github.com/docker-library/mys
 
 ```bash
 docker run -d \
-  --name mysql \
-  -p 3306:3306 \
-  -e MYSQL_ROOT_PASSWORD=secret \
+  --name mariadb \
+  -p 172.17.0.1:3306:3306 \
+  -v /data/mysql:/DATA
+  -e MYSQL_ROOT_PASSWORD=notasecret \
   -e MYSQL_DATABASE=test \
   -e MYSQL_USER=test \
   -e MYSQL_PASSWORD=test \
   --read-only \
-  vibioh/mysql:latest
+  cryptoplay/alpine-mariadb:latest
 ```
