@@ -1,5 +1,5 @@
 mysql:
-  image: vibioh/mysql
+  image: cryptoplay/alpine-mariadb
   ports:
   - ${MYSQL_PORT}:3306/tcp
   labels:
