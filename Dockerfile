@@ -3,7 +3,7 @@ MAINTAINER CryptoPlay <docker@cryptoplay.tk>
 
 COPY ./entrypoint.sh /
 ENTRYPOINT [ "/entrypoint.sh" ]
-ENV MYSQL_DIR /data/mysql
+ENV MYSQL_DIR /var/lib/mysql
 EXPOSE 3306
 
 RUN chmod +x /entrypoint.sh \
@@ -17,7 +17,7 @@ RUN chmod +x /entrypoint.sh \
  && chown -R mysql:mysql /etc/mysql/ \
  && rm -rf /var/cache/apk/*
 
-VOLUME /data /var/log/mysql /etc/mysql/ /tmp
+VOLUME ${MYSQL_DIR} /var/log/mysql /etc/mysql/ /tmp
 
 USER mysql
 
