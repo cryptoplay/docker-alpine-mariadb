@@ -1,4 +1,5 @@
-FROM alpine:3.5
+FROM cryptoplay/alpine:3.6
+MAINTAINER CryptoPlay <docker@cryptoplay.tk>
 
 COPY ./entrypoint.sh /
 ENTRYPOINT [ "/entrypoint.sh" ]
