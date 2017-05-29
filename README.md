@@ -8,7 +8,7 @@ Largely inspired by [MySQL official image](https://github.com/docker-library/mys
 docker run -d \
   --name mariadb \
   -p 172.17.0.1:3306:3306 \
-  -v /data/mysql:/DATA
+  -v /data/mysql:/var/lib/mysql \
   -e MYSQL_ROOT_PASSWORD=notasecret \
   -e MYSQL_DATABASE=test \
   -e MYSQL_USER=test \
