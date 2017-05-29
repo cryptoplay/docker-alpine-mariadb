@@ -10,7 +10,7 @@ RUN chmod +x /entrypoint.sh \
  && adduser -u 1000 -S -s /sbin/nologin mysql \
  && addgroup -g 60 mysql \
  && addgroup mysql mysql \
- && apk add --no-cache mariadb mysql mariadb-client \
+ && apk add --no-cache mariadb mysql \
  && rm -rf ${MYSQL_DIR} \
  && mkdir -p ${MYSQL_DIR} \
  && chown -R mysql:mysql ${MYSQL_DIR} \
