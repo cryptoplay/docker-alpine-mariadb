@@ -1,4 +1,4 @@
-FROM cryptoplay/alpine:3.6
+FROM alpine:edge
 MAINTAINER CryptoPlay <docker@cryptoplay.tk>
 
 COPY ./entrypoint.sh /
