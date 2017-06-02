@@ -1,24 +1,16 @@
 FROM alpine:edge
 MAINTAINER CryptoPlay <docker@cryptoplay.tk>
 
-COPY ./entrypoint.sh /
-ENTRYPOINT [ "/entrypoint.sh" ]
-ENV MYSQL_DIR /var/lib/mysql
+RUN apk --update add mariadb mariadb-client pwgen && \
+    rm -f /var/cache/apk/*
+
+ADD run.sh /scripts/run.sh
+RUN mkdir /scripts/pre-exec.d && \
+    mkdir /scripts/pre-init.d && \
+    chmod -R 755 /scripts
+
 EXPOSE 3306
 
-RUN chmod +x /entrypoint.sh \
- && adduser -u 1000 -S -s /sbin/nologin mysql \
- && addgroup -g 60 mysql \
- && addgroup mysql mysql \
- && apk add --no-cache mariadb mariadb-client \
- && rm -rf ${MYSQL_DIR} \
- && mkdir -p ${MYSQL_DIR} \
- && chown -R mysql:mysql ${MYSQL_DIR} \
- && chown -R mysql:mysql /etc/mysql/ \
- && rm -rf /var/cache/apk/*
+VOLUME ["/var/lib/mysql"]
 
-VOLUME ${MYSQL_DIR} /var/log/mysql /etc/mysql/ /tmp
-
-USER mysql
-
-CMD [ "mysqld", "--user=mysql" ]
+ENTRYPOINT ["/scripts/run.sh"]
